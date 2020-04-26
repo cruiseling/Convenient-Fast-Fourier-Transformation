@@ -1,5 +1,6 @@
 # Fast Fourier Transformation (FFT) and Inverse Transformation (IFFT)
 
+### FFT
 For a length $n$ real vector 
 
 $$\bm x = [x_1,\ldots, x_n],$$
@@ -20,6 +21,7 @@ vf->fft(y, x);                                   /// get the result in y
 ```
 
 
+### IFFT
 
 For a length $n$ complex vector
 
