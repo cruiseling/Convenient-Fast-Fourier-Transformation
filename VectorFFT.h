@@ -8,11 +8,8 @@
 #define VectorFFT_h 1
 
 // usual header
-#include <Rcpp.h>
 #include <fftw3.h>
 #include <iostream>
-// using namespace Rcpp;
-// using namespace std;
 
 /// Forward FFT from real to complex.
 class VectorFFT {
@@ -145,49 +142,5 @@ inline void vecConv_Add(fftw_complex* y, fftw_complex* alpha,
   }
   return;
 }
-
-/// Steps for polynomial convolution: For two polynomials `a(x) = a_0 + a_1 * x
-/// + ... a_p * x^p` and  `b(x) = b_0 + b_1 * x + ... b_q * x^q`
-///
-/// 1) generate two VectorFFT classes and one VectorIFFT class: 
-///		a_FFT = new VectorFFT(p+q); 
-///		b_FFT = new VectorFFT(p+q);
-///		c_IFFT = new VectorIFFT(p+q);
-///
-/// 2) copy the input polynomials:
-///		std::copy(a, a+p, a_FFT->in); 
-///		std::copy(b, b+q, b_FFT->in);
-///
-/// 3) FFT: 
-///		a_FFT->fft();
-///		b_FFT->fft();
-///
-/// 4) multiplication: 
-///		vecConv(c_FFT->out, a_FFT->out, b_FFT->out, p+q);
-///
-/// 5) Inverse FFT: 
-///		c_IFFT->ifft();
-///
-/// Then results `c(x) = c_0 + c_1 * x + ... + c_p+q * x^p+q = a(x) * b(x)` is
-/// in c_IFFT->out.
-///
-/// Note 1: for two length-n polynomials a_n(x) and b_n(x), their VectorFFT is
-/// of size 2*n. 
-///
-/// Note 2: In fftw, if c_FFT is of length 2*n and it is the FFT of
-/// real vector, computation of its IFFT only requires its first 2*(N/2+1)
-/// terms, not all of the 2*n terms.
-
-
-/*
-// Function for printing the vectors
-void printVector(double* x, int n) {
-	for (int ii = 0; ii < n; ++ii) {
-		cout << x[ii] << " ";
-	}
-	cout << endl;
-	return;
-}
-*/
 
 #endif
